@@ -1,0 +1,39 @@
+<h1>陶磁器</h1>
+<h3>Tweet詳細</h3>
+<div class="ceramic">
+  <p><%= @ceramic.name %></p>
+  <p><%= @ceramic.created_at %></p>
+</div>
+
+<%= link_to "Tweet一覧に戻る", ceramics_path %>
+<%= link_to "編集する", edit_ceramic_path(@ceramic.id) %>
+
+<div id='map'></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 100%;
+}
+</style>
+
+<!-- js部分 -->
+<script>
+//初期マップの設定
+let map
+let marker
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center:  {lat: <%= @ceramic.lat %>, lng: <%= @ceramic.lng %>},
+    zoom: 15,
+  });
+
+   marker = new google.maps.Marker({
+    position:  {lat: <%= @ceramic.lat %>, lng: <%= @ceramic.lng %>},
+    map: map
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBxnolUQx3g39MXzMimfwAN5PJV174nPeE&callback=initMap" async defer></script>
